@@ -83,12 +83,12 @@ export const PlayerController: React.FC<PlayerControllerProps> = ({
     }
 
     // 3. Collision Boundaries (Keep inside Basilica Nave & Aisles)
-    position.current.x = THREE.MathUtils.clamp(position.current.x, -10.5, 10.5);
-    position.current.z = THREE.MathUtils.clamp(position.current.z, -17.5, 20.5);
+    position.current.x = THREE.MathUtils.clamp(position.current.x, -11.0, 11.0);
+    position.current.z = THREE.MathUtils.clamp(position.current.z, -17.0, 20.5);
 
     // Prevent clipping into main high altar mensa block
-    if (position.current.z < -17.0 && Math.abs(position.current.x) < 4.5) {
-      position.current.z = -17.0;
+    if (position.current.z < -16.5 && Math.abs(position.current.x) < 4.5) {
+      position.current.z = -16.5;
     }
 
     // Update avatar mesh position
@@ -102,14 +102,14 @@ export const PlayerController: React.FC<PlayerControllerProps> = ({
     camera.position.y = 1.7; // Eye height
     camera.position.z = position.current.z;
 
-    // Proximity triggers: Baroque Donation Box (x: 6.5, z: -15)
-    const distToDonation = position.current.distanceTo(new THREE.Vector3(6.5, 0, -15));
+    // Proximity triggers: Centered Donation Dais with Gold Rain (x: 0, z: -12.5)
+    const distToDonation = position.current.distanceTo(new THREE.Vector3(0, 0, -12.5));
     if (onNearDonation) {
       onNearDonation(distToDonation < 3.8);
     }
 
-    // Proximity triggers: Baroque Confession Booth (x: -8.5, z: 0)
-    const distToConfession = position.current.distanceTo(new THREE.Vector3(-8.5, 0, 0));
+    // Proximity triggers: Wall-Mounted Confession Booth beside Altar (x: -8.0, z: -14.5)
+    const distToConfession = position.current.distanceTo(new THREE.Vector3(-8.0, 0, -14.5));
     if (onNearConfession) {
       onNearConfession(distToConfession < 4.0);
     }
