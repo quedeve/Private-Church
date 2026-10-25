@@ -77,8 +77,19 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
     () => (
       <meshStandardMaterial
         color="#f1f5f9"
-        roughness={0.1}
-        metalness={0.25}
+        roughness={0.12}
+        metalness={0.2}
+      />
+    ),
+    []
+  );
+
+  const parquetWoodFloor = useMemo(
+    () => (
+      <meshStandardMaterial
+        color="#542a12"
+        roughness={0.32}
+        metalness={0.1}
       />
     ),
     []
@@ -100,9 +111,20 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
   const richWalnut = useMemo(
     () => (
       <meshStandardMaterial
-        color="#451a03"
-        roughness={0.45}
+        color="#3d1b08"
+        roughness={0.4}
         metalness={0.08}
+      />
+    ),
+    []
+  );
+
+  const antiqueBrass = useMemo(
+    () => (
+      <meshStandardMaterial
+        color="#d97706"
+        metalness={0.82}
+        roughness={0.28}
       />
     ),
     []
@@ -118,9 +140,7 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       <ambientLight intensity={1.5} color="#fffbeb" />
 
       {/* Radiant sky hemisphere light */}
-      <hemisphereLight
-        args={['#fef9c3', '#e2e8f0', 1.2]}
-      />
+      <hemisphereLight args={['#fef9c3', '#e2e8f0', 1.2]} />
 
       {/* Intense natural streaming sunlight entering from high clerestory windows */}
       <directionalLight
@@ -140,11 +160,7 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       />
 
       {/* Secondary fill daylight from opposite high windows */}
-      <directionalLight
-        position={[-18, 30, -10]}
-        intensity={1.6}
-        color="#fef3c7"
-      />
+      <directionalLight position={[-18, 30, -10]} intensity={1.6} color="#fef3c7" />
 
       {/* Direct divine sunlight pouring through dome oculus */}
       <spotLight
@@ -168,45 +184,93 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       />
 
       {/* ========================================================================= */}
-      {/* 2. POLISHED MARBLE FLOOR WITH RENAISSANCE GEOMETRIC INLAYS */}
+      {/* 2. HYBRID FLOOR: POLISHED MARBLE AISLES + WARM PARQUET HARDWOOD ACCENTS */}
       {/* ========================================================================= */}
 
-      {/* Main Polished Carrara Marble Floor */}
-      <mesh position={[0, -0.05, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+      {/* Base Subfloor */}
+      <mesh position={[0, -0.06, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[26, 48]} />
         {polishedFloor}
       </mesh>
 
-      {/* Central Grand Aisle Marble Intarsia / Inlay Runner */}
-      <group position={[0, 0.01, 0]}>
-        {/* Verona Rose & Gold Marble Center Band */}
-        <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[5.2, 44]} />
-          <meshStandardMaterial color="#991b1b" roughness={0.2} metalness={0.15} />
+      {/* Left Seating Wing: Warm Parquet Hardwood Floor under Pews */}
+      <group position={[-5.8, 0.005, 0]}>
+        <mesh receiveShadow>
+          <boxGeometry args={[6.2, 0.04, 40]} />
+          {parquetWoodFloor}
         </mesh>
-        {/* Gold Leaf Trim Edging Bands */}
-        <mesh position={[-2.65, 0, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[0.2, 44]} />
+        {/* Carrara Marble Border Frame */}
+        <mesh position={[-3.15, 0.015, 0]}>
+          <boxGeometry args={[0.2, 0.045, 40]} />
+          {marbleWhite}
+        </mesh>
+        <mesh position={[3.15, 0.015, 0]}>
+          <boxGeometry args={[0.2, 0.045, 40]} />
+          {marbleWhite}
+        </mesh>
+      </group>
+
+      {/* Right Seating Wing: Warm Parquet Hardwood Floor under Pews */}
+      <group position={[5.8, 0.005, 0]}>
+        <mesh receiveShadow>
+          <boxGeometry args={[6.2, 0.04, 40]} />
+          {parquetWoodFloor}
+        </mesh>
+        <mesh position={[-3.15, 0.015, 0]}>
+          <boxGeometry args={[0.2, 0.045, 40]} />
+          {marbleWhite}
+        </mesh>
+        <mesh position={[3.15, 0.015, 0]}>
+          <boxGeometry args={[0.2, 0.045, 40]} />
+          {marbleWhite}
+        </mesh>
+      </group>
+
+      {/* Central Marble Procession Walkway */}
+      <mesh position={[0, 0.002, 0]} receiveShadow>
+        <boxGeometry args={[5.0, 0.035, 44]} />
+        {polishedFloor}
+      </mesh>
+
+      {/* SOLID 3D RAISED RED VELVET CEREMONIAL CARPET (ZERO Z-FIGHTING / NO WHITE FLASHING) */}
+      <group position={[0, 0.035, 0]}>
+        {/* Main Solid Velvet Slab with depth & thickness */}
+        <mesh receiveShadow>
+          <boxGeometry args={[4.4, 0.05, 43]} />
+          <meshStandardMaterial
+            color="#881337"
+            roughness={0.75}
+            metalness={0.05}
+            polygonOffset
+            polygonOffsetFactor={-1}
+            polygonOffsetUnits={-1}
+          />
+        </mesh>
+
+        {/* Gilded Gold Embroidered Edge Strips */}
+        <mesh position={[-2.25, 0.01, 0]}>
+          <boxGeometry args={[0.16, 0.06, 43]} />
           {gildedGold}
         </mesh>
-        <mesh position={[2.65, 0, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[0.2, 44]} />
+        <mesh position={[2.25, 0.01, 0]}>
+          <boxGeometry args={[0.16, 0.06, 43]} />
           {gildedGold}
         </mesh>
-        {/* Decorative Circular Porphyry & Marble Medallions */}
+
+        {/* Vatican Porphyry & Gold Medallions spaced along the carpet */}
         {[-14, -8, -2, 4, 10, 16].map((z, idx) => (
-          <group key={`medallion-${idx}`} position={[0, 0.015, z]}>
+          <group key={`carpet-medallion-${idx}`} position={[0, 0.032, z]}>
             <mesh rotation={[-Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[1.2, 1.35, 32]} />
+              <ringGeometry args={[1.0, 1.15, 32]} />
               {gildedGold}
             </mesh>
             <mesh rotation={[-Math.PI / 2, 0, 0]}>
-              <circleGeometry args={[1.18, 32]} />
-              <meshStandardMaterial color="#f8fafc" roughness={0.15} metalness={0.2} />
+              <circleGeometry args={[0.98, 32]} />
+              <meshStandardMaterial color="#450a0a" roughness={0.6} />
             </mesh>
             <mesh rotation={[-Math.PI / 2, 0, 0]}>
-              <circleGeometry args={[0.65, 8]} />
-              <meshStandardMaterial color="#7f1d1d" roughness={0.25} />
+              <circleGeometry args={[0.55, 8]} />
+              {gildedGold}
             </mesh>
           </group>
         ))}
@@ -219,7 +283,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
         <group key={`col-pair-${idx}`}>
           {/* Left Colossal Column */}
           <group position={[-7.5, 0, zPos]}>
-            {/* Marble Pedestal Base */}
             <mesh position={[0, 1.1, 0]} castShadow receiveShadow>
               <boxGeometry args={[1.5, 2.2, 1.5]} />
               {marbleWhite}
@@ -228,29 +291,23 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
               <boxGeometry args={[1.65, 0.15, 1.65]} />
               {gildedGold}
             </mesh>
-            {/* Torus Molding Base Ring */}
             <mesh position={[0, 2.5, 0]}>
               <cylinderGeometry args={[0.65, 0.75, 0.35, 24]} />
               {marbleWhite}
             </mesh>
-            {/* Fluted Column Shaft */}
             <mesh position={[0, 8.5, 0]} castShadow receiveShadow>
               <cylinderGeometry args={[0.55, 0.62, 11.5, 32]} />
               {marbleGoldVein}
             </mesh>
-            {/* Corinthian Capital Assembly */}
             <group position={[0, 14.5, 0]}>
-              {/* Lower Acanthus Leaf Collar */}
               <mesh position={[0, 0.2, 0]}>
                 <cylinderGeometry args={[0.75, 0.58, 0.5, 20]} />
                 {gildedGold}
               </mesh>
-              {/* Mid Foliage Bell & Volute Scrolls */}
               <mesh position={[0, 0.65, 0]}>
                 <cylinderGeometry args={[0.9, 0.72, 0.5, 20]} />
                 {gildedGold}
               </mesh>
-              {/* Classical Abacus Plate with concave moldings */}
               <mesh position={[0, 1.05, 0]}>
                 <boxGeometry args={[1.5, 0.3, 1.5]} />
                 {gildedGold}
@@ -298,7 +355,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
               <boxGeometry args={[14.2, 0.6, 1.1]} />
               {marbleWhite}
             </mesh>
-            {/* Gilded Architrave Trim Underneath */}
             <mesh position={[0, -0.32, 0]}>
               <boxGeometry args={[14.0, 0.1, 0.9]} />
               {gildedGold}
@@ -308,7 +364,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       ))}
 
       {/* Continuous Classical Entablature (Architrave + Gilded Frieze + Dentil Cornice) */}
-      {/* Left Entablature Beam */}
       <group position={[-7.5, 15.8, 0]}>
         <mesh position={[0, 0, 0]} castShadow>
           <boxGeometry args={[1.4, 0.5, 38]} />
@@ -323,7 +378,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           {marbleWhite}
         </mesh>
       </group>
-      {/* Right Entablature Beam */}
       <group position={[7.5, 15.8, 0]}>
         <mesh position={[0, 0, 0]} castShadow>
           <boxGeometry args={[1.4, 0.5, 38]} />
@@ -340,23 +394,216 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 4. HIGH CLEAR ARCHED CLERESTORY WINDOWS & VOLUMETRIC SUNLIGHT SHAFTS */}
+      {/* 4. VATICAN ACCESSORY: CARVED WALNUT WAINSCOTING & OIL PAINTINGS */}
+      {/* ========================================================================= */}
+      {/* Left Wall Wainscoting Paneling (Height 3.2m) */}
+      <group position={[-12.2, 1.6, 0]}>
+        <mesh receiveShadow>
+          <boxGeometry args={[0.3, 3.2, 42]} />
+          {richWalnut}
+        </mesh>
+        {/* Gilded Top Chair Rail */}
+        <mesh position={[0.16, 1.55, 0]}>
+          <boxGeometry args={[0.1, 0.14, 42]} />
+          {gildedGold}
+        </mesh>
+        {/* Recessed Boiserie Moldings */}
+        {[-14, -8, -2, 4, 10, 16].map((z, idx) => (
+          <mesh key={`wainscot-panel-left-${idx}`} position={[0.16, 0, z]}>
+            <boxGeometry args={[0.04, 2.2, 3.6]} />
+            <meshStandardMaterial color="#2d1306" roughness={0.45} />
+          </mesh>
+        ))}
+      </group>
+
+      {/* Right Wall Wainscoting Paneling */}
+      <group position={[12.2, 1.6, 0]}>
+        <mesh receiveShadow>
+          <boxGeometry args={[0.3, 3.2, 42]} />
+          {richWalnut}
+        </mesh>
+        <mesh position={[-0.16, 1.55, 0]}>
+          <boxGeometry args={[0.1, 0.14, 42]} />
+          {gildedGold}
+        </mesh>
+        {[-14, -8, -2, 4, 10, 16].map((z, idx) => (
+          <mesh key={`wainscot-panel-right-${idx}`} position={[-0.16, 0, z]}>
+            <boxGeometry args={[0.04, 2.2, 3.6]} />
+            <meshStandardMaterial color="#2d1306" roughness={0.45} />
+          </mesh>
+        ))}
+      </group>
+
+      {/* Framed Vatican Masterpiece Paintings along the Side Walls */}
+      {[-12, -4, 4, 12].map((z, idx) => (
+        <group key={`painting-pair-${idx}`}>
+          {/* Left Wall Painting */}
+          <group position={[-12.0, 5.5, z]}>
+            {/* Gilded Baroque Frame */}
+            <mesh castShadow>
+              <boxGeometry args={[0.12, 2.8, 3.6]} />
+              {gildedGold}
+            </mesh>
+            {/* Canvas Artwork */}
+            <mesh position={[0.07, 0, 0]}>
+              <boxGeometry args={[0.02, 2.4, 3.2]} />
+              <meshStandardMaterial
+                color={idx % 2 === 0 ? '#78350f' : '#1e3a8a'}
+                roughness={0.7}
+              />
+            </mesh>
+          </group>
+
+          {/* Right Wall Painting */}
+          <group position={[12.0, 5.5, z]}>
+            <mesh castShadow>
+              <boxGeometry args={[0.12, 2.8, 3.6]} />
+              {gildedGold}
+            </mesh>
+            <mesh position={[-0.07, 0, 0]}>
+              <boxGeometry args={[0.02, 2.4, 3.2]} />
+              <meshStandardMaterial
+                color={idx % 2 === 0 ? '#1e3a8a' : '#78350f'}
+                roughness={0.7}
+              />
+            </mesh>
+          </group>
+        </group>
+      ))}
+
+      {/* ========================================================================= */}
+      {/* 5. VATICAN ACCESSORY: HANGING BRASS SANCTUARY CHANDELIERS */}
+      {/* ========================================================================= */}
+      {[-10, -4, 2, 8, 14].map((z, idx) => (
+        <group key={`chandelier-${idx}`} position={[0, 10.5, z]}>
+          {/* Hanging Chain from Arch */}
+          <mesh position={[0, 3.0, 0]}>
+            <cylinderGeometry args={[0.03, 0.03, 6.0, 8]} />
+            {antiqueBrass}
+          </mesh>
+          {/* Central Brass Crown / Core */}
+          <mesh position={[0, 0, 0]} castShadow>
+            <sphereGeometry args={[0.45, 16, 16]} />
+            {antiqueBrass}
+          </mesh>
+          {/* Tiered Brass Rings */}
+          <mesh position={[0, -0.3, 0]}>
+            <torusGeometry args={[1.2, 0.08, 12, 24]} />
+            {antiqueBrass}
+          </mesh>
+          <mesh position={[0, 0.35, 0]}>
+            <torusGeometry args={[0.7, 0.06, 12, 24]} />
+            {antiqueBrass}
+          </mesh>
+
+          {/* Candle Lights around the Chandelier Ring */}
+          {[0, Math.PI / 3, (2 * Math.PI) / 3, Math.PI, (4 * Math.PI) / 3, (5 * Math.PI) / 3].map(
+            (ang, cIdx) => (
+              <group
+                key={`chan-candle-${cIdx}`}
+                position={[Math.sin(ang) * 1.2, -0.1, Math.cos(ang) * 1.2]}
+              >
+                <mesh position={[0, 0.15, 0]}>
+                  <cylinderGeometry args={[0.035, 0.035, 0.25, 8]} />
+                  <meshStandardMaterial color="#fef3c7" />
+                </mesh>
+                <mesh position={[0, 0.3, 0]}>
+                  <coneGeometry args={[0.04, 0.12, 8]} />
+                  <meshBasicMaterial color="#fbbf24" />
+                </mesh>
+              </group>
+            )
+          )}
+
+          {/* Warm Ambient Chandelier Glow */}
+          <pointLight color="#f59e0b" intensity={1.2} distance={10} position={[0, 0, 0]} />
+        </group>
+      ))}
+
+      {/* ========================================================================= */}
+      {/* 6. VATICAN ACCESSORY: SCULPTED CARVED WALNUT PULPIT (AMBO) */}
+      {/* Positioned on the right side of the chancel steps */}
+      {/* ========================================================================= */}
+      <group position={[5.4, 0, -14.2]}>
+        {/* Sculpted Marble Plinth */}
+        <mesh position={[0, 0.6, 0]} castShadow receiveShadow>
+          <cylinderGeometry args={[1.3, 1.5, 1.2, 8]} />
+          {marbleWhite}
+        </mesh>
+        {/* Octagonal Carved Walnut Pulpit Enclosure */}
+        <mesh position={[0, 2.1, 0]} castShadow>
+          <cylinderGeometry args={[1.35, 1.2, 1.8, 8, 1, true]} />
+          {richWalnut}
+        </mesh>
+        <mesh position={[0, 3.02, 0]}>
+          <cylinderGeometry args={[1.45, 1.35, 0.12, 8, 1, true]} />
+          {gildedGold}
+        </mesh>
+        {/* Preaching Book Stand / Lectern */}
+        <group position={[0, 3.25, -0.5]} rotation={[0.3, 0, 0]}>
+          <mesh castShadow>
+            <boxGeometry args={[0.8, 0.5, 0.08]} />
+            {richWalnut}
+          </mesh>
+          <mesh position={[0, 0.05, 0.05]}>
+            <boxGeometry args={[0.6, 0.35, 0.05]} />
+            <meshStandardMaterial color="#fef3c7" roughness={0.8} />
+          </mesh>
+        </group>
+        {/* Overhead Sounding Board Canopy */}
+        <group position={[0, 5.6, 0]}>
+          <mesh castShadow>
+            <cylinderGeometry args={[1.6, 1.7, 0.3, 8]} />
+            {richWalnut}
+          </mesh>
+          <mesh position={[0, 0.2, 0]}>
+            <cylinderGeometry args={[1.5, 1.6, 0.1, 8]} />
+            {gildedGold}
+          </mesh>
+          <mesh position={[0, 0.45, 0]}>
+            <coneGeometry args={[0.4, 0.5, 8]} />
+            {gildedGold}
+          </mesh>
+        </group>
+      </group>
+
+      {/* Holy Water Fonts (Stoups) near South Entrance */}
+      <group position={[-3.2, 0, 19]}>
+        <mesh position={[0, 0.6, 0]} castShadow>
+          <cylinderGeometry args={[0.25, 0.35, 1.2, 12]} />
+          {marbleWhite}
+        </mesh>
+        <mesh position={[0, 1.25, 0]} castShadow>
+          <sphereGeometry args={[0.45, 16, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2]} />
+          {antiqueBrass}
+        </mesh>
+      </group>
+      <group position={[3.2, 0, 19]}>
+        <mesh position={[0, 0.6, 0]} castShadow>
+          <cylinderGeometry args={[0.25, 0.35, 1.2, 12]} />
+          {marbleWhite}
+        </mesh>
+        <mesh position={[0, 1.25, 0]} castShadow>
+          <sphereGeometry args={[0.45, 16, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2]} />
+          {antiqueBrass}
+        </mesh>
+      </group>
+
+      {/* ========================================================================= */}
+      {/* 7. HIGH CLEAR ARCHED CLERESTORY WINDOWS & VOLUMETRIC SUNLIGHT SHAFTS */}
       {/* ========================================================================= */}
       {[-12, -6, 0, 6, 12].map((z, idx) => (
         <group key={`win-bay-${idx}`}>
           {/* Left Arched Window */}
           <group position={[-12.4, 11, z]}>
             <mesh>
-              <planeGeometry args={[0.1, 7]} />
               <boxGeometry args={[0.3, 7.5, 3.2]} />
               {marbleWhite}
             </mesh>
-            {/* Arched Window Glass letting in daylight */}
             <mesh position={[0, 0, 0]}>
               <planeGeometry args={[3.0, 7.0]} />
               <meshBasicMaterial color="#ffffff" opacity={0.65} transparent />
             </mesh>
-            {/* Gold Window Mullion Cross */}
             <mesh position={[0.05, 0, 0]}>
               <boxGeometry args={[0.06, 6.8, 0.08]} />
               {gildedGold}
@@ -366,7 +613,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
               {gildedGold}
             </mesh>
 
-            {/* Volumetric Sunbeam Shaft streaming downward across the Nave */}
             <mesh position={[4.5, -4.5, -1.5]} rotation={[0.4, 0.3, -0.65]}>
               <cylinderGeometry args={[0.8, 4.2, 14, 16, 1, true]} />
               <meshBasicMaterial
@@ -399,7 +645,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
               {gildedGold}
             </mesh>
 
-            {/* Volumetric Sunbeam Shaft streaming from right side */}
             <mesh position={[-4.5, -4.5, -1.5]} rotation={[-0.4, -0.3, 0.65]}>
               <cylinderGeometry args={[0.8, 4.2, 14, 16, 1, true]} />
               <meshBasicMaterial
@@ -415,49 +660,39 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
         </group>
       ))}
 
-      {/* Main Outer Walls (Ivory & Gilded Marble Pilasters) */}
-      {/* Left Nave Wall */}
+      {/* Outer Walls */}
       <mesh position={[-12.6, 9.5, 0]} receiveShadow>
         <boxGeometry args={[0.6, 19, 44]} />
         <meshStandardMaterial color="#fefce8" roughness={0.25} />
       </mesh>
-      {/* Right Nave Wall */}
       <mesh position={[12.6, 9.5, 0]} receiveShadow>
         <boxGeometry args={[0.6, 19, 44]} />
         <meshStandardMaterial color="#fefce8" roughness={0.25} />
       </mesh>
-      {/* Entrance Wall (South) */}
       <mesh position={[0, 9.5, 22]} receiveShadow>
         <boxGeometry args={[25, 19, 0.8]} />
         <meshStandardMaterial color="#fefce8" roughness={0.25} />
       </mesh>
 
       {/* ========================================================================= */}
-      {/* 5. TOWERING COFFERED BARREL VAULT & COFFERED CEILING */}
+      {/* 8. TOWERING COFFERED BARREL VAULT & COFFERED CEILING */}
       {/* ========================================================================= */}
-      {/* Coffered Barrel Vault over Nave */}
       {[-15, -9, -3, 3, 9, 15].map((z, row) => (
         <group key={`vault-row-${row}`} position={[0, 18.2, z]}>
-          {/* Main Vault Arch Band */}
           <mesh castShadow>
             <boxGeometry args={[14.8, 0.8, 5.2]} />
             <meshStandardMaterial color="#fffbeb" roughness={0.2} />
           </mesh>
-
-          {/* Deep Recessed Coffers with Gilded Gold Inner Trim */}
           {[-4.8, -1.6, 1.6, 4.8].map((x, col) => (
             <group key={`coffer-${col}`} position={[x, -0.15, 0]}>
-              {/* Outer Gilded Molding Frame */}
               <mesh>
                 <boxGeometry args={[2.5, 0.45, 3.8]} />
                 {gildedGold}
               </mesh>
-              {/* Deep Recessed Paneling */}
               <mesh position={[0, 0.15, 0]}>
                 <boxGeometry args={[2.0, 0.4, 3.2]} />
                 <meshStandardMaterial color="#451a03" roughness={0.4} />
               </mesh>
-              {/* Central Gilded Rosette / Star */}
               <mesh position={[0, -0.05, 0]}>
                 <cylinderGeometry args={[0.3, 0.4, 0.15, 8]} />
                 {gildedGold}
@@ -468,21 +703,18 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       ))}
 
       {/* ========================================================================= */}
-      {/* 6. CENTRAL CROSSING & TOWERING COFFERED DOME OVERHEAD */}
+      {/* 9. CENTRAL CROSSING & TOWERING COFFERED DOME OVERHEAD */}
       {/* ========================================================================= */}
       <group position={[0, 18.5, -6]}>
-        {/* Octagonal / Cylindrical Dome Drum */}
         <mesh castShadow receiveShadow>
           <cylinderGeometry args={[8.2, 8.5, 3.8, 24, 1, true]} />
           {marbleWhite}
         </mesh>
-        {/* Drum Gilded Moldings & Cornice */}
         <mesh position={[0, 2.0, 0]}>
           <cylinderGeometry args={[8.8, 8.6, 0.45, 24, 1, true]} />
           {gildedGold}
         </mesh>
 
-        {/* Dome Drum Arched Windows for intense zenith daylight */}
         {[0, Math.PI / 4, Math.PI / 2, (3 * Math.PI) / 4, Math.PI, (5 * Math.PI) / 4, (3 * Math.PI) / 2, (7 * Math.PI) / 4].map(
           (ang, i) => (
             <group key={`drum-win-${i}`} position={[Math.sin(ang) * 8.3, 0.2, Math.cos(ang) * 8.3]} rotation={[0, ang, 0]}>
@@ -494,18 +726,12 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           )
         )}
 
-        {/* Soaring Hemispherical Coffered Dome Shell */}
         <group position={[0, 2.2, 0]}>
           <mesh castShadow receiveShadow>
             <sphereGeometry args={[8.2, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshStandardMaterial
-              color="#fffbeb"
-              roughness={0.2}
-              side={THREE.BackSide}
-            />
+            <meshStandardMaterial color="#fffbeb" roughness={0.2} side={THREE.BackSide} />
           </mesh>
 
-          {/* Gilded Ribs running up the Dome */}
           {[0, Math.PI / 4, Math.PI / 2, (3 * Math.PI) / 4, Math.PI, (5 * Math.PI) / 4, (3 * Math.PI) / 2, (7 * Math.PI) / 4].map(
             (ang, i) => (
               <group key={`dome-rib-${i}`} rotation={[0, ang, 0]}>
@@ -517,7 +743,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
             )
           )}
 
-          {/* Oculus / Lantern at Summit letting in celestial beam */}
           <group position={[0, 8.1, 0]}>
             <mesh rotation={[-Math.PI / 2, 0, 0]}>
               <ringGeometry args={[1.2, 2.2, 24]} />
@@ -528,7 +753,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
               <meshBasicMaterial color="#ffffff" />
             </mesh>
 
-            {/* Volumetric Downward Light Column from Oculus */}
             <mesh position={[0, -5.5, 0]}>
               <cylinderGeometry args={[1.2, 3.8, 12, 16, 1, true]} />
               <meshBasicMaterial
@@ -545,22 +769,19 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 7. MONUMENTAL CENTRAL ARCHED APSE (NORTH END) */}
+      {/* 10. MONUMENTAL CENTRAL ARCHED APSE (NORTH END) */}
       {/* ========================================================================= */}
       <group position={[0, 0, -22]}>
-        {/* Semicircular Apse Wall Cylinder Segment */}
         <mesh position={[0, 9.5, 0]} receiveShadow>
           <cylinderGeometry args={[8.8, 8.8, 19, 32, 1, true, Math.PI, Math.PI]} />
           <meshStandardMaterial color="#fefce8" roughness={0.25} side={THREE.BackSide} />
         </mesh>
 
-        {/* Ribbed Apse Half-Dome Vault */}
         <mesh position={[0, 18.5, 0]} castShadow receiveShadow>
           <sphereGeometry args={[8.8, 32, 16, Math.PI, Math.PI, 0, Math.PI / 2]} />
           <meshStandardMaterial color="#fffbeb" roughness={0.2} side={THREE.BackSide} />
         </mesh>
 
-        {/* Apse Arch Portal Framing */}
         <group position={[0, 18.5, 0]}>
           <mesh>
             <torusGeometry args={[8.8, 0.6, 12, 32, Math.PI]} />
@@ -568,7 +789,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           </mesh>
         </group>
 
-        {/* Apse Lower Wall Golden Pilasters */}
         {[-7, -3.5, 0, 3.5, 7].map((x, idx) => (
           <group key={`apse-pilaster-${idx}`} position={[x, 7.5, Math.cos((x / 8.8) * (Math.PI / 2)) * -6]}>
             <mesh>
@@ -582,7 +802,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           </group>
         ))}
 
-        {/* Layered Golden Cornices across the Apse */}
         <mesh position={[0, 15.0, -4.5]} rotation={[0, Math.PI, 0]}>
           <cylinderGeometry args={[8.7, 8.7, 0.5, 32, 1, true, 0, Math.PI]} />
           {gildedGold}
@@ -590,19 +809,15 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 8. THE DIVINE GLORY: GOLDEN SUNBURST RAYS & GLOWING OVAL STAINED GLASS */}
-      {/* Inspired by Bernini's Cathedra Petri in St. Peter's Basilica */}
+      {/* 11. THE DIVINE GLORY: GOLDEN SUNBURST RAYS & GLOWING OVAL STAINED GLASS */}
       {/* ========================================================================= */}
       <group position={[0, 10.5, -21.4]}>
-        {/* Grand Radiant Golden Sunburst Rays */}
         {gloryRays.map((r) => (
           <group key={r.key} rotation={[0, 0, r.angle]}>
-            {/* Tapered Gilded Beam */}
             <mesh position={[0, r.length / 2 + 1.2, 0]} castShadow>
               <boxGeometry args={[r.width, r.length, 0.08]} />
               {gildedGold}
             </mesh>
-            {/* Ray Flare Tip */}
             <mesh position={[0, r.length + 1.2, 0]}>
               <coneGeometry args={[r.width * 1.5, 0.4, 4]} />
               {gildedGold}
@@ -610,7 +825,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           </group>
         ))}
 
-        {/* Golden Cloud & Angel Sculptural Relief Frame around the Oval */}
         <mesh position={[0, 0, -0.05]}>
           <torusGeometry args={[1.7, 0.35, 16, 32]} />
           {gildedGold}
@@ -620,26 +834,20 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           {gildedGold}
         </mesh>
 
-        {/* Central Luminous Oval Stained-Glass Dove Halo */}
         <group scale={[1.15, 1.6, 1.0]}>
-          {/* Glowing Inner Core */}
           <mesh>
             <circleGeometry args={[1.35, 32]} />
             <meshBasicMaterial color="#fef08a" />
           </mesh>
-          {/* Amber & Honey Stained-Glass Outer Ring */}
           <mesh position={[0, 0, -0.01]}>
             <ringGeometry args={[1.3, 1.6, 32]} />
             <meshBasicMaterial color="#f59e0b" />
           </mesh>
-          {/* Divine Holy Spirit Dove Silhouette Emblem */}
           <group position={[0, 0, 0.02]} scale={[0.6, 0.45, 0.6]}>
-            {/* Dove Body */}
             <mesh>
               <sphereGeometry args={[0.3, 16, 16]} />
               <meshBasicMaterial color="#ffffff" />
             </mesh>
-            {/* Outspread Wings */}
             <mesh position={[-0.45, 0.1, 0]} rotation={[0, 0, 0.35]}>
               <boxGeometry args={[0.7, 0.18, 0.05]} />
               <meshBasicMaterial color="#ffffff" />
@@ -653,10 +861,9 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 9. BAROQUE HIGH ALTAR & CANDLESTICKS */}
+      {/* 12. BAROQUE HIGH ALTAR & CANDLESTICKS */}
       {/* ========================================================================= */}
       <group position={[0, 0, -18.2]}>
-        {/* Tiered Marble Altar Steps (High Altar Platform) */}
         <mesh position={[0, 0.25, 0]} receiveShadow>
           <boxGeometry args={[14, 0.5, 6.5]} />
           {marbleWhite}
@@ -670,30 +877,24 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           {marbleWhite}
         </mesh>
 
-        {/* Altar Table (Sculpted Italian Walnut & Gilded Marble) */}
         <group position={[0, 1.9, -1.6]}>
-          {/* Altar Base */}
           <mesh castShadow receiveShadow>
             <boxGeometry args={[5.6, 1.3, 1.8]} />
             {marbleWhite}
           </mesh>
-          {/* Gilded Frontal Relief Panel */}
           <mesh position={[0, 0, 0.92]}>
             <boxGeometry args={[4.8, 0.9, 0.05]} />
             {gildedGold}
           </mesh>
-          {/* Altar Mensa Slab */}
           <mesh position={[0, 0.7, 0]}>
             <boxGeometry args={[6.0, 0.14, 2.1]} />
             {marbleWhite}
           </mesh>
-          {/* Pure White Liturgical Linen Cloth */}
           <mesh position={[0, 0.78, 0]}>
             <boxGeometry args={[5.8, 0.04, 1.9]} />
             <meshStandardMaterial color="#ffffff" roughness={0.8} />
           </mesh>
 
-          {/* Gilded Tabernacle with Cross */}
           <group position={[0, 1.25, -0.4]}>
             <mesh castShadow>
               <boxGeometry args={[1.1, 1.1, 0.9]} />
@@ -713,7 +914,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
             </mesh>
           </group>
 
-          {/* Gilded Candlesticks & Flickering Point Lights */}
           <group position={[-2.2, 1.2, 0]}>
             <mesh castShadow>
               <cylinderGeometry args={[0.06, 0.15, 0.7, 16]} />
@@ -741,65 +941,76 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 10. CARVED WALNUT CONGREGATION PEWS */}
+      {/* 13. CARVED WALNUT CONGREGATION PEWS — CORRECT FORWARD DIRECTION & WALKTHROUGH */}
+      {/* Backrest positioned at +z so seats face North towards the Altar (-z) */}
       {/* ========================================================================= */}
       {[-12, -8, -4, 0, 4, 8, 12].map((z, rowIdx) => (
         <group key={`pew-row-${rowIdx}`}>
-          {/* Left Pew Row */}
-          <group position={[-4.5, 0.55, z]}>
-            {/* Seat Board */}
+          {/* Left Pew Row (Passable / Walkthrough) */}
+          <group position={[-5.6, 0.55, z]}>
+            {/* Seat Board (Open towards North / -z) */}
             <mesh castShadow receiveShadow>
-              <boxGeometry args={[4.4, 0.14, 0.85]} />
+              <boxGeometry args={[5.2, 0.14, 0.82]} />
               {richWalnut}
             </mesh>
-            {/* Molded Backrest with Classical Top Rail */}
-            <mesh position={[0, 0.5, -0.38]} castShadow receiveShadow>
-              <boxGeometry args={[4.4, 0.9, 0.12]} />
+            {/* Molded Backrest placed at +z (Facing Altar at -z) */}
+            <mesh position={[0, 0.5, 0.38]} castShadow receiveShadow>
+              <boxGeometry args={[5.2, 0.9, 0.12]} />
               {richWalnut}
             </mesh>
-            <mesh position={[0, 0.96, -0.38]}>
-              <boxGeometry args={[4.5, 0.08, 0.16]} />
+            <mesh position={[0, 0.96, 0.38]}>
+              <boxGeometry args={[5.3, 0.08, 0.16]} />
               {gildedGold}
             </mesh>
             {/* Carved Bench Ends */}
-            <mesh position={[-2.15, 0.25, -0.05]} castShadow>
+            <mesh position={[-2.55, 0.25, 0.05]} castShadow>
               <boxGeometry args={[0.16, 1.2, 0.95]} />
               {richWalnut}
             </mesh>
-            <mesh position={[2.15, 0.25, -0.05]} castShadow>
+            <mesh position={[2.55, 0.25, 0.05]} castShadow>
               <boxGeometry args={[0.16, 1.2, 0.95]} />
               {richWalnut}
+            </mesh>
+            {/* Padded Kneeler at the Back */}
+            <mesh position={[0, -0.32, 0.5]}>
+              <boxGeometry args={[4.8, 0.1, 0.22]} />
+              <meshStandardMaterial color="#881337" roughness={0.6} />
             </mesh>
           </group>
 
-          {/* Right Pew Row */}
-          <group position={[4.5, 0.55, z]}>
+          {/* Right Pew Row (Passable / Walkthrough) */}
+          <group position={[5.6, 0.55, z]}>
             <mesh castShadow receiveShadow>
-              <boxGeometry args={[4.4, 0.14, 0.85]} />
+              <boxGeometry args={[5.2, 0.14, 0.82]} />
               {richWalnut}
             </mesh>
-            <mesh position={[0, 0.5, -0.38]} castShadow receiveShadow>
-              <boxGeometry args={[4.4, 0.9, 0.12]} />
+            {/* Molded Backrest placed at +z (Facing Altar at -z) */}
+            <mesh position={[0, 0.5, 0.38]} castShadow receiveShadow>
+              <boxGeometry args={[5.2, 0.9, 0.12]} />
               {richWalnut}
             </mesh>
-            <mesh position={[0, 0.96, -0.38]}>
-              <boxGeometry args={[4.5, 0.08, 0.16]} />
+            <mesh position={[0, 0.96, 0.38]}>
+              <boxGeometry args={[5.3, 0.08, 0.16]} />
               {gildedGold}
             </mesh>
-            <mesh position={[-2.15, 0.25, -0.05]} castShadow>
+            <mesh position={[-2.55, 0.25, 0.05]} castShadow>
               <boxGeometry args={[0.16, 1.2, 0.95]} />
               {richWalnut}
             </mesh>
-            <mesh position={[2.15, 0.25, -0.05]} castShadow>
+            <mesh position={[2.55, 0.25, 0.05]} castShadow>
               <boxGeometry args={[0.16, 1.2, 0.95]} />
               {richWalnut}
+            </mesh>
+            <mesh position={[0, -0.32, 0.5]}>
+              <boxGeometry args={[4.8, 0.1, 0.22]} />
+              <meshStandardMaterial color="#881337" roughness={0.6} />
             </mesh>
           </group>
         </group>
       ))}
 
       {/* ========================================================================= */}
-      {/* 11. BAROQUE KOTAK PERSEMBAHAN (DONATION CHEST) */}
+      {/* 14. BAROQUE KOTAK PERSEMBAHAN (DONATION CHEST) */}
       {/* ========================================================================= */}
       <group
         position={[6.5, 0, -15]}
@@ -810,7 +1021,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
         onPointerOver={() => (document.body.style.cursor = 'pointer')}
         onPointerOut={() => (document.body.style.cursor = 'auto')}
       >
-        {/* Sculpted Marble Plinth */}
         <mesh position={[0, 0.45, 0]} receiveShadow>
           <cylinderGeometry args={[1.0, 1.25, 0.9, 20]} />
           {marbleWhite}
@@ -820,23 +1030,19 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           {gildedGold}
         </mesh>
 
-        {/* Gilded Baroque Offering Chest with Acanthus Molding */}
         <mesh position={[0, 1.45, 0]} castShadow>
           <boxGeometry args={[1.35, 0.85, 1.0]} />
           {gildedGold}
         </mesh>
-        {/* Carved Walnut Core Body */}
         <mesh position={[0, 1.45, 0]}>
           <boxGeometry args={[1.25, 0.75, 0.9]} />
           {richWalnut}
         </mesh>
-        {/* Offering Slot */}
         <mesh position={[0, 1.88, 0]}>
           <boxGeometry args={[0.55, 0.04, 0.08]} />
           <meshBasicMaterial color="#000000" />
         </mesh>
 
-        {/* Divine Halo & Floating Typography */}
         <Float speed={2.8} rotationIntensity={0.4} floatIntensity={0.6}>
           <mesh position={[0, 2.35, 0]}>
             <torusGeometry args={[0.5, 0.04, 16, 32]} />
@@ -870,7 +1076,7 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 12. BAROQUE BILIK PENGAKUAN DOSA (CONFESSION BOOTH) */}
+      {/* 15. BAROQUE BILIK PENGAKUAN DOSA (CONFESSION BOOTH) */}
       {/* ========================================================================= */}
       <group
         position={[-8.5, 0, 0]}
@@ -881,12 +1087,10 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
         onPointerOver={() => (document.body.style.cursor = 'pointer')}
         onPointerOut={() => (document.body.style.cursor = 'auto')}
       >
-        {/* Carved Dark Walnut Baroque Booth Structure */}
         <mesh position={[0, 2.4, 0]} castShadow receiveShadow>
           <boxGeometry args={[3.2, 4.8, 2.6]} />
           {richWalnut}
         </mesh>
-        {/* Gilded Moldings along the Pillars and Corners */}
         <mesh position={[1.5, 2.4, 1.25]}>
           <boxGeometry args={[0.15, 4.6, 0.15]} />
           {gildedGold}
@@ -900,7 +1104,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           {gildedGold}
         </mesh>
 
-        {/* Sculpted Baroque Pediment / Crown */}
         <mesh position={[0, 4.95, 0]}>
           <boxGeometry args={[3.4, 0.35, 2.8]} />
           {gildedGold}
@@ -910,7 +1113,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           {richWalnut}
         </mesh>
 
-        {/* Red Damask Velvet Curtains */}
         <mesh position={[0.75, 2.2, 1.32]}>
           <planeGeometry args={[1.2, 3.8]} />
           <meshStandardMaterial color="#881337" roughness={0.7} />
@@ -920,7 +1122,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           <meshStandardMaterial color="#881337" roughness={0.7} />
         </mesh>
 
-        {/* Gilded Cross on Header */}
         <group position={[0, 5.0, 1.35]}>
           <mesh>
             <boxGeometry args={[0.14, 0.7, 0.05]} />
@@ -932,7 +1133,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           </mesh>
         </group>
 
-        {/* Brass Status Lantern Indicator */}
         <group position={[0, 5.8, 1.3]}>
           <mesh>
             <sphereGeometry args={[0.18, 16, 16]} />
@@ -949,7 +1149,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           />
         </group>
 
-        {/* Floating Divine Inscription */}
         <Float speed={2.2} rotationIntensity={0.2} floatIntensity={0.5}>
           <Text
             position={[0, 6.4, 1.3]}
