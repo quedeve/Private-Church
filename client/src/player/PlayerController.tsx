@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { PointerLockControls, Billboard, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { UserProfile } from '../types';
+import { LAYOUT } from '../scenes/layout';
 
 interface PlayerControllerProps {
   profile: UserProfile;
@@ -102,16 +103,20 @@ export const PlayerController: React.FC<PlayerControllerProps> = ({
     camera.position.y = 1.7; // Eye height
     camera.position.z = position.current.z;
 
-    // Proximity triggers: Centered Donation Dais with Gold Rain (x: 0, z: -12.5)
-    const distToDonation = position.current.distanceTo(new THREE.Vector3(0, 0, -12.5));
+    // Proximity triggers: Centered Donation Dais with Gold Rain
+    const distToDonation = position.current.distanceTo(
+      new THREE.Vector3(LAYOUT.donationDais.trigger.x, 0, LAYOUT.donationDais.trigger.z)
+    );
     if (onNearDonation) {
-      onNearDonation(distToDonation < 3.8);
+      onNearDonation(distToDonation < LAYOUT.donationDais.trigger.distance);
     }
 
-    // Proximity triggers: Wall-Mounted Confession Booth beside Altar (x: -8.0, z: -14.5)
-    const distToConfession = position.current.distanceTo(new THREE.Vector3(-8.0, 0, -14.5));
+    // Proximity triggers: Wall-Mounted Confession Booth beside Altar
+    const distToConfession = position.current.distanceTo(
+      new THREE.Vector3(LAYOUT.confessionBooth.trigger.x, 0, LAYOUT.confessionBooth.trigger.z)
+    );
     if (onNearConfession) {
-      onNearConfession(distToConfession < 4.0);
+      onNearConfession(distToConfession < LAYOUT.confessionBooth.trigger.distance);
     }
 
     // Broadcast position to Colyseus multiplayer on ~60ms throttle

@@ -31,17 +31,17 @@ export const LAYOUT = {
 
   // Private Confession Room beside Altar, positioned against Left Wall
   confessionBooth: {
-    x: -9.8,
+    x: -10.2,
     y: 0,
     z: -14.5,
-    width: 2.6,
-    depth: 3.2,
-    rotationY: Math.PI / 2, // Door faces nave / east (+x)
+    width: 2.8,
+    depth: 2.4,
+    rotationY: 0, // Entrance faces south directly toward congregation (+z)
     trigger: {
-      x: -8.0,
+      x: -10.2,
       y: 0,
-      z: -14.5,
-      distance: 4.0,
+      z: -12.5,
+      distance: 3.8,
     } as TriggerZone,
   },
 

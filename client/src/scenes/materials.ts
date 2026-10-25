@@ -48,7 +48,7 @@ export function createMarbleTexture(): THREE.CanvasTexture {
   return texture;
 }
 
-// 2. Procedural Italian Walnut Parquet Floor Texture
+// 2. Procedural Light Oak / Blonde Parquet Wood Floor Texture
 export function createParquetTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 512;
@@ -56,54 +56,54 @@ export function createParquetTexture(): THREE.CanvasTexture {
   const ctx = canvas.getContext('2d');
   if (!ctx) return new THREE.CanvasTexture(canvas);
 
-  // Base deep walnut wood tone
-  ctx.fillStyle = '#451a03';
+  // Base warm luminous light oak tone
+  ctx.fillStyle = '#f3e3cb';
   ctx.fillRect(0, 0, 512, 512);
 
-  // Draw individual parquet planks with bevel gaps
+  // Draw individual light wood planks with alternating grain and subtle bevels
   const plankWidth = 64;
   const plankHeight = 128;
 
   for (let y = 0; y < 512; y += plankHeight) {
     for (let x = 0; x < 512; x += plankWidth) {
-      // Board tone variation
-      const brightnessOffset = (Math.random() - 0.5) * 24;
-      const r = Math.min(255, Math.max(0, 69 + brightnessOffset));
-      const g = Math.min(255, Math.max(0, 26 + brightnessOffset * 0.4));
-      const b = Math.min(255, Math.max(0, 8 + brightnessOffset * 0.2));
+      // Natural plank-to-plank subtle variation (honey oak, blonde ash, warm maple)
+      const toneOffset = (Math.random() - 0.5) * 16;
+      const r = Math.min(255, Math.max(0, 238 + toneOffset));
+      const g = Math.min(255, Math.max(0, 218 + toneOffset * 0.9));
+      const b = Math.min(255, Math.max(0, 188 + toneOffset * 0.7));
 
-      ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+      ctx.fillStyle = `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
       ctx.fillRect(x + 1, y + 1, plankWidth - 2, plankHeight - 2);
 
-      // Fine wood grain lines inside each plank
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
-      ctx.lineWidth = 0.8;
-      for (let gIdx = 0; gIdx < 6; gIdx++) {
-        const lineX = x + 4 + gIdx * 9;
+      // Fine natural organic wood grain
+      ctx.strokeStyle = 'rgba(165, 115, 60, 0.22)';
+      ctx.lineWidth = 0.9;
+      for (let gIdx = 0; gIdx < 7; gIdx++) {
+        const lineX = x + 3 + gIdx * 8.5;
         ctx.beginPath();
         ctx.moveTo(lineX, y);
         ctx.bezierCurveTo(
-          lineX + (Math.random() - 0.5) * 6,
-          y + 40,
-          lineX + (Math.random() - 0.5) * 6,
-          y + 80,
+          lineX + (Math.random() - 0.5) * 5,
+          y + 35,
+          lineX + (Math.random() - 0.5) * 5,
+          y + 85,
           lineX,
           y + plankHeight
         );
         ctx.stroke();
       }
 
-      // Dark bevel groove border
-      ctx.strokeStyle = 'rgba(15, 6, 2, 0.7)';
-      ctx.lineWidth = 1.5;
-      ctx.strokeRect(x, y, plankWidth, plankHeight);
+      // Very soft, light plank groove boundary
+      ctx.strokeStyle = 'rgba(140, 95, 45, 0.35)';
+      ctx.lineWidth = 1.0;
+      ctx.strokeRect(x + 0.5, y + 0.5, plankWidth - 1, plankHeight - 1);
     }
   }
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set(3, 10);
+  texture.repeat.set(4, 12);
   return texture;
 }
 

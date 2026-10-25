@@ -99,9 +99,9 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
     () => (
       <meshStandardMaterial
         map={parquetTex}
-        color="#542a12"
-        roughness={0.28}
-        metalness={0.1}
+        color="#ffffff"
+        roughness={0.3}
+        metalness={0.02}
       />
     ),
     [parquetTex]
@@ -123,9 +123,9 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
   const richWalnutMat = useMemo(
     () => (
       <meshStandardMaterial
-        color="#3d1b08"
-        roughness={0.4}
-        metalness={0.08}
+        color="#78350f"
+        roughness={0.38}
+        metalness={0.05}
       />
     ),
     []
@@ -191,53 +191,46 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       />
 
       {/* ========================================================================= */}
-      {/* 2. REALISTIC 3D NON-OVERLAPPING FLOOR PARTITION */}
-      {/* Polished Carrara Marble Aisles + Recessed Italian Walnut Parquet */}
+      {/* 2. REALISTIC 3D LIGHT WOOD PARQUET FLOOR WITH CARRARA MARBLE TRIM */}
       {/* ========================================================================= */}
 
-      {/* Main High-Gloss Carrara Marble Floor */}
+      {/* Main Sanctuary Floor: Warm Luminous Light Honey Oak Parquet */}
       <mesh position={[0, -0.06, 0]} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[26, 48]} />
-        {marbleFloorMat}
+        {parquetWoodFloorMat}
       </mesh>
 
-      {/* Left Seating Wing: Recessed Italian Parquet Hardwood Floor */}
-      <group position={[-5.5, -0.006, 0]}>
-        {/* Recessed Parquet Field */}
+      {/* Left Seating Area: Solid Light Wood Parquet Field with Marble Edge Framing */}
+      <group position={[-7.1, -0.006, 0]}>
+        {/* Wide Light Wood Parquet Field covering entire left wing */}
         <mesh receiveShadow>
-          <boxGeometry args={[4.8, 0.04, 38]} />
+          <boxGeometry args={[10.0, 0.04, 44]} />
           {parquetWoodFloorMat}
         </mesh>
-        {/* Marble Border Stringer Framing */}
-        <mesh position={[-2.45, 0.015, 0]}>
-          <boxGeometry args={[0.16, 0.045, 38]} />
-          {marbleSolidMat}
-        </mesh>
-        <mesh position={[2.45, 0.015, 0]}>
-          <boxGeometry args={[0.16, 0.045, 38]} />
+        {/* Polished Carrara Marble Border Stringer Framing alongside Aisle */}
+        <mesh position={[4.95, 0.015, 0]}>
+          <boxGeometry args={[0.2, 0.045, 44]} />
           {marbleSolidMat}
         </mesh>
       </group>
 
-      {/* Right Seating Wing: Recessed Italian Parquet Hardwood Floor */}
-      <group position={[5.5, -0.006, 0]}>
+      {/* Right Seating Area: Solid Light Wood Parquet Field with Marble Edge Framing */}
+      <group position={[7.1, -0.006, 0]}>
+        {/* Wide Light Wood Parquet Field covering entire right wing */}
         <mesh receiveShadow>
-          <boxGeometry args={[4.8, 0.04, 38]} />
+          <boxGeometry args={[10.0, 0.04, 44]} />
           {parquetWoodFloorMat}
         </mesh>
-        <mesh position={[-2.45, 0.015, 0]}>
-          <boxGeometry args={[0.16, 0.045, 38]} />
-          {marbleSolidMat}
-        </mesh>
-        <mesh position={[2.45, 0.015, 0]}>
-          <boxGeometry args={[0.16, 0.045, 38]} />
+        {/* Polished Carrara Marble Border Stringer Framing alongside Aisle */}
+        <mesh position={[-4.95, 0.015, 0]}>
+          <boxGeometry args={[0.2, 0.045, 44]} />
           {marbleSolidMat}
         </mesh>
       </group>
 
       {/* Central Marble Procession Walkway */}
       <mesh position={[0, 0.002, 0]} receiveShadow>
-        <boxGeometry args={[4.6, 0.035, 44]} />
+        <boxGeometry args={[4.2, 0.035, 44]} />
         {marbleFloorMat}
       </mesh>
 
@@ -967,8 +960,8 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 14. PRIVATE CONFESSION BOOTH: IN FRONT BESIDE ALTAR FLUSH TO LEFT WALL */}
-      {/* Located at x: -9.8, z: -14.5 rotated 90 deg so door faces the nave */}
+      {/* 14. PRIVATE BAROQUE CONFESSION BOOTH: HOLLOW OPEN-FACADE ENTRANCE */}
+      {/* Positioned against Left Wall, entrance facing South directly toward congregation */}
       {/* ========================================================================= */}
       <group
         position={[LAYOUT.confessionBooth.x, LAYOUT.confessionBooth.y, LAYOUT.confessionBooth.z]}
@@ -980,59 +973,153 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
         onPointerOver={() => (document.body.style.cursor = 'pointer')}
         onPointerOut={() => (document.body.style.cursor = 'auto')}
       >
-        {/* Carved Dark Walnut Baroque Booth Structure */}
-        <mesh position={[0, 2.4, 0]} castShadow receiveShadow>
-          <boxGeometry args={[LAYOUT.confessionBooth.depth, 4.8, LAYOUT.confessionBooth.width]} />
-          {richWalnutMat}
-        </mesh>
-        {/* Gilded Moldings along the Pillars and Corners */}
-        <mesh position={[1.5, 2.4, 1.25]}>
-          <boxGeometry args={[0.15, 4.6, 0.15]} />
-          {gildedGoldMat}
-        </mesh>
-        <mesh position={[-1.5, 2.4, 1.25]}>
-          <boxGeometry args={[0.15, 4.6, 0.15]} />
-          {gildedGoldMat}
-        </mesh>
-        <mesh position={[0, 2.4, 1.25]}>
-          <boxGeometry args={[0.15, 4.6, 0.15]} />
-          {gildedGoldMat}
-        </mesh>
-
-        {/* Sculpted Baroque Pediment / Crown */}
-        <mesh position={[0, 4.95, 0]}>
-          <boxGeometry args={[LAYOUT.confessionBooth.depth + 0.2, 0.35, LAYOUT.confessionBooth.width + 0.2]} />
-          {gildedGoldMat}
-        </mesh>
-        <mesh position={[0, 5.3, 0]}>
-          <coneGeometry args={[1.8, 0.9, 4]} />
+        {/* Hollow Structure: Back Enclosure Wall against North */}
+        <mesh position={[0, 2.3, -1.1]} castShadow receiveShadow>
+          <boxGeometry args={[2.8, 4.6, 0.2]} />
           {richWalnutMat}
         </mesh>
 
-        {/* Red Damask Velvet Curtains */}
-        <mesh position={[0.75, 2.2, 1.32]}>
-          <planeGeometry args={[1.2, 3.8]} />
+        {/* Outer Left Wall against Church Wall */}
+        <mesh position={[-1.3, 2.3, 0]} castShadow receiveShadow>
+          <boxGeometry args={[0.2, 4.6, 2.2]} />
+          {richWalnutMat}
+        </mesh>
+
+        {/* Outer Right Wall facing Chancel */}
+        <mesh position={[1.3, 2.3, 0]} castShadow receiveShadow>
+          <boxGeometry args={[0.2, 4.6, 2.2]} />
+          {richWalnutMat}
+        </mesh>
+
+        {/* Central Partition Divider between Priest & Penitent */}
+        <mesh position={[0, 2.1, 0]} castShadow receiveShadow>
+          <boxGeometry args={[0.12, 4.2, 2.0]} />
+          {richWalnutMat}
+        </mesh>
+
+        {/* Perforated Brass Confession Grille in Center Divider */}
+        <mesh position={[0, 2.1, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.3, 0.3, 0.14, 16]} />
+          {antiqueBrassMat}
+        </mesh>
+
+        {/* Wooden Floor Plinth */}
+        <mesh position={[0, 0.1, 0]} receiveShadow>
+          <boxGeometry args={[2.8, 0.2, 2.2]} />
+          {richWalnutMat}
+        </mesh>
+
+        {/* Interior: Penitent Kneeler (Prie-Dieu) on Right Compartment */}
+        <group position={[0.65, 0, 0]}>
+          <mesh position={[0, 0.3, 0.2]} castShadow>
+            <boxGeometry args={[0.8, 0.45, 0.5]} />
+            {richWalnutMat}
+          </mesh>
+          <mesh position={[0, 0.55, 0.2]}>
+            <boxGeometry args={[0.75, 0.08, 0.45]} />
+            <meshStandardMaterial color="#881337" roughness={0.6} />
+          </mesh>
+          <mesh position={[0, 0.8, -0.4]} castShadow>
+            <boxGeometry args={[0.8, 0.9, 0.2]} />
+            {richWalnutMat}
+          </mesh>
+        </group>
+
+        {/* Interior: Priest Seat on Left Compartment */}
+        <group position={[-0.65, 0, 0]}>
+          <mesh position={[0, 0.45, -0.3]} castShadow>
+            <boxGeometry args={[0.8, 0.55, 0.6]} />
+            {richWalnutMat}
+          </mesh>
+          <mesh position={[0, 0.75, -0.3]}>
+            <boxGeometry args={[0.75, 0.08, 0.55]} />
+            <meshStandardMaterial color="#881337" roughness={0.6} />
+          </mesh>
+        </group>
+
+        {/* Warm Ambient Candlelight inside Confession Booth */}
+        <pointLight color="#f59e0b" intensity={2.0} distance={4.5} position={[0, 2.8, 0]} />
+
+        {/* Front Portal Facade: Three Vertical Framing Pilasters */}
+        <mesh position={[-1.3, 2.3, 1.1]} castShadow>
+          <boxGeometry args={[0.22, 4.6, 0.22]} />
+          {richWalnutMat}
+        </mesh>
+        <mesh position={[1.3, 2.3, 1.1]} castShadow>
+          <boxGeometry args={[0.22, 4.6, 0.22]} />
+          {richWalnutMat}
+        </mesh>
+        <mesh position={[0, 2.3, 1.1]} castShadow>
+          <boxGeometry args={[0.22, 4.6, 0.22]} />
+          {richWalnutMat}
+        </mesh>
+
+        {/* Gilded Moldings along Front Pilasters */}
+        <mesh position={[-1.3, 2.3, 1.22]}>
+          <boxGeometry args={[0.1, 4.5, 0.05]} />
+          {gildedGoldMat}
+        </mesh>
+        <mesh position={[1.3, 2.3, 1.22]}>
+          <boxGeometry args={[0.1, 4.5, 0.05]} />
+          {gildedGoldMat}
+        </mesh>
+        <mesh position={[0, 2.3, 1.22]}>
+          <boxGeometry args={[0.1, 4.5, 0.05]} />
+          {gildedGoldMat}
+        </mesh>
+
+        {/* Front Arched Lintel Header Beam */}
+        <mesh position={[0, 4.25, 1.1]} castShadow>
+          <boxGeometry args={[2.84, 0.7, 0.24]} />
+          {richWalnutMat}
+        </mesh>
+        <mesh position={[0, 4.65, 1.15]}>
+          <boxGeometry args={[2.9, 0.12, 0.28]} />
+          {gildedGoldMat}
+        </mesh>
+
+        {/* Sculpted Baroque Pediment / Crown on Roof */}
+        <mesh position={[0, 4.85, 0]}>
+          <boxGeometry args={[3.0, 0.28, 2.5]} />
+          {gildedGoldMat}
+        </mesh>
+        <mesh position={[0, 5.25, 0]}>
+          <coneGeometry args={[1.7, 0.8, 4]} />
+          {richWalnutMat}
+        </mesh>
+
+        {/* Draped Red Damask Velvet Curtains Framing the Open Doorways */}
+        <mesh position={[-0.95, 2.4, 1.12]} rotation={[0, 0, 0.05]}>
+          <planeGeometry args={[0.6, 3.2]} />
           <meshStandardMaterial color="#881337" roughness={0.7} />
         </mesh>
-        <mesh position={[-0.75, 2.2, 1.32]}>
-          <planeGeometry args={[1.2, 3.8]} />
+        <mesh position={[-0.35, 2.4, 1.12]} rotation={[0, 0, -0.05]}>
+          <planeGeometry args={[0.6, 3.2]} />
+          <meshStandardMaterial color="#881337" roughness={0.7} />
+        </mesh>
+        <mesh position={[0.35, 2.4, 1.12]} rotation={[0, 0, 0.05]}>
+          <planeGeometry args={[0.6, 3.2]} />
+          <meshStandardMaterial color="#881337" roughness={0.7} />
+        </mesh>
+        <mesh position={[0.95, 2.4, 1.12]} rotation={[0, 0, -0.05]}>
+          <planeGeometry args={[0.6, 3.2]} />
           <meshStandardMaterial color="#881337" roughness={0.7} />
         </mesh>
 
-        {/* Gilded Cross on Header */}
-        <group position={[0, 5.0, 1.35]}>
+        {/* Gilded Cross on Top of Pediment */}
+        <group position={[0, 5.8, 1.15]}>
           <mesh>
-            <boxGeometry args={[0.14, 0.7, 0.05]} />
+            <boxGeometry args={[0.14, 0.75, 0.05]} />
             {gildedGoldMat}
           </mesh>
-          <mesh position={[0, 0.12, 0]}>
-            <boxGeometry args={[0.45, 0.14, 0.05]} />
+          <mesh position={[0, 0.15, 0]}>
+            <boxGeometry args={[0.48, 0.14, 0.05]} />
             {gildedGoldMat}
           </mesh>
         </group>
 
         {/* Brass Status Lantern Indicator */}
-        <group position={[0, 5.8, 1.3]}>
+        <group position={[0, 4.3, 1.3]}>
           <mesh>
             <sphereGeometry args={[0.18, 16, 16]} />
             <meshStandardMaterial
@@ -1048,10 +1135,10 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
           />
         </group>
 
-        {/* Floating Divine Inscription */}
+        {/* Floating Divine Inscription directly facing the congregation */}
         <Float speed={2.2} rotationIntensity={0.2} floatIntensity={0.5}>
           <Text
-            position={[0, 6.4, 1.3]}
+            position={[0, 6.7, 1.2]}
             fontSize={0.28}
             color="#fef3c7"
             anchorX="center"
@@ -1062,7 +1149,7 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
             RUANG PENGAKUAN DOSA
           </Text>
           <Text
-            position={[0, 6.05, 1.3]}
+            position={[0, 6.35, 1.2]}
             fontSize={0.18}
             color={isConfessionBusy ? '#f87171' : '#a7f3d0'}
             anchorX="center"
