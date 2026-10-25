@@ -203,11 +203,19 @@ export const App: React.FC = () => {
       <div className="canvas-container">
         <Canvas
           shadows
-          camera={{ position: [0, 1.7, 14], fov: 65, near: 0.1, far: 200 }}
-          gl={{ antialias: true, powerPreference: 'high-performance' }}
+          camera={{ position: [0, 1.7, 16], fov: 68, near: 0.1, far: 250 }}
+          gl={{
+            antialias: true,
+            powerPreference: 'high-performance',
+          }}
+          onCreated={({ gl }) => {
+            gl.toneMapping = 4; // ACESFilmicToneMapping
+            gl.toneMappingExposure = 1.3;
+          }}
         >
-          <color attach="background" args={['#090a10']} />
-          <fog attach="fog" args={['#090a10', 15, 45]} />
+          {/* Luminous warm celestial daylight background & soft golden atmospheric haze */}
+          <color attach="background" args={['#fffbeb']} />
+          <fog attach="fog" args={['#fef9c3', 40, 125]} />
 
           <Sanctuary
             onOpenDonation={() => setIsDonationOpen(true)}

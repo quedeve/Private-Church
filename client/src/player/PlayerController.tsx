@@ -82,13 +82,13 @@ export const PlayerController: React.FC<PlayerControllerProps> = ({
       rotationY.current = Math.atan2(moveVector.x, moveVector.z);
     }
 
-    // 3. Collision Boundaries (Keep inside Sanctuary Nave & Prevent clipping)
-    position.current.x = THREE.MathUtils.clamp(position.current.x, -9.5, 9.5);
-    position.current.z = THREE.MathUtils.clamp(position.current.z, -18.5, 18.5);
+    // 3. Collision Boundaries (Keep inside Basilica Nave & Aisles)
+    position.current.x = THREE.MathUtils.clamp(position.current.x, -10.5, 10.5);
+    position.current.z = THREE.MathUtils.clamp(position.current.z, -17.5, 20.5);
 
-    // Prevent clipping into main altar block
-    if (position.current.z < -15.5 && Math.abs(position.current.x) < 7.0) {
-      position.current.z = -15.5;
+    // Prevent clipping into main high altar mensa block
+    if (position.current.z < -17.0 && Math.abs(position.current.x) < 4.5) {
+      position.current.z = -17.0;
     }
 
     // Update avatar mesh position
@@ -102,16 +102,16 @@ export const PlayerController: React.FC<PlayerControllerProps> = ({
     camera.position.y = 1.7; // Eye height
     camera.position.z = position.current.z;
 
-    // Proximity triggers: Donation Box (x: 5.5, z: -13)
-    const distToDonation = position.current.distanceTo(new THREE.Vector3(5.5, 0, -13));
+    // Proximity triggers: Baroque Donation Box (x: 6.5, z: -15)
+    const distToDonation = position.current.distanceTo(new THREE.Vector3(6.5, 0, -15));
     if (onNearDonation) {
-      onNearDonation(distToDonation < 3.2);
+      onNearDonation(distToDonation < 3.8);
     }
 
-    // Proximity triggers: Confession Booth (x: -7.5, z: 2)
-    const distToConfession = position.current.distanceTo(new THREE.Vector3(-7.5, 0, 2));
+    // Proximity triggers: Baroque Confession Booth (x: -8.5, z: 0)
+    const distToConfession = position.current.distanceTo(new THREE.Vector3(-8.5, 0, 0));
     if (onNearConfession) {
-      onNearConfession(distToConfession < 3.5);
+      onNearConfession(distToConfession < 4.0);
     }
 
     // Broadcast position to Colyseus multiplayer on ~60ms throttle
