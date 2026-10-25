@@ -1,0 +1,24 @@
+{
+  "name": "private-church",
+  "version": "1.0.0",
+  "private": true,
+  "description": "3D Church Virtual Experience with Multiplayer, Confession Room, and Tiered Donations",
+  "scripts": {
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build": "npm run build:client && npm run build:server"
+  },
+  "keywords": [
+    "threejs",
+    "react-three-fiber",
+    "colyseus",
+    "livekit",
+    "supabase",
+    "virtual-church",
+    "webgl"
+  ],
+  "author": "",
+  "license": "MIT"
+}

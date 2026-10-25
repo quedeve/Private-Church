@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" width="360" height="480">
+  <rect width="360" height="480" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- QRIS Header Banner -->
+  <rect x="0" y="0" width="360" height="70" rx="16" fill="#ba181b"/>
+  <rect x="0" y="54" width="360" height="16" fill="#ba181b"/>
+  <text x="180" y="44" font-family="'Outfit', sans-serif" font-weight="900" font-size="28" fill="#ffffff" text-anchor="middle" letter-spacing="4">QRIS</text>
+  <text x="180" y="60" font-family="'Outfit', sans-serif" font-weight="500" font-size="9" fill="#f8d7da" text-anchor="middle">PEMBAYARAN DIGITAL NASIONAL</text>
+
+  <!-- Merchant Information -->
+  <text x="180" y="100" font-family="'Outfit', sans-serif" font-weight="700" font-size="16" fill="#1e293b" text-anchor="middle">GEREJA ONLINE INDONESIA</text>
+  <text x="180" y="118" font-family="'Outfit', sans-serif" font-weight="400" font-size="11" fill="#64748b" text-anchor="middle">NMID : ID1020038192837</text>
+  <text x="180" y="132" font-family="'Outfit', sans-serif" font-weight="500" font-size="10" fill="#059669" text-anchor="middle">A1 - PERSEMBAHAN &amp; DIAKONIA</text>
+
+  <!-- QR Border Box -->
+  <rect x="50" y="145" width="260" height="260" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- QR Pattern Mockup -->
+  <!-- Top Left Corner Marker -->
+  <rect x="70" y="165" width="60" height="60" rx="6" fill="#0f172a"/>
+  <rect x="80" y="175" width="40" height="40" rx="4" fill="#ffffff"/>
+  <rect x="88" y="183" width="24" height="24" rx="2" fill="#0f172a"/>
+
+  <!-- Top Right Corner Marker -->
+  <rect x="230" y="165" width="60" height="60" rx="6" fill="#0f172a"/>
+  <rect x="240" y="175" width="40" height="40" rx="4" fill="#ffffff"/>
+  <rect x="248" y="183" width="24" height="24" rx="2" fill="#0f172a"/>
+
+  <!-- Bottom Left Corner Marker -->
+  <rect x="70" y="325" width="60" height="60" rx="6" fill="#0f172a"/>
+  <rect x="80" y="335" width="40" height="40" rx="4" fill="#ffffff"/>
+  <rect x="88" y="343" width="24" height="24" rx="2" fill="#0f172a"/>
+
+  <!-- Matrix Pattern Dots -->
+  <rect x="145" y="165" width="16" height="16" fill="#0f172a"/>
+  <rect x="170" y="165" width="16" height="32" fill="#0f172a"/>
+  <rect x="195" y="165" width="16" height="16" fill="#0f172a"/>
+  <rect x="145" y="195" width="32" height="16" fill="#0f172a"/>
+  <rect x="190" y="195" width="24" height="16" fill="#0f172a"/>
+
+  <rect x="70" y="240" width="16" height="32" fill="#0f172a"/>
+  <rect x="100" y="240" width="30" height="16" fill="#0f172a"/>
+  <rect x="90" y="270" width="40" height="16" fill="#0f172a"/>
+  
+  <rect x="140" y="225" width="80" height="80" rx="8" fill="#ba181b"/>
+  <text x="180" y="272" font-family="'Outfit', sans-serif" font-weight="800" font-size="14" fill="#ffffff" text-anchor="middle">GEREJA</text>
+
+  <rect x="235" y="240" width="32" height="16" fill="#0f172a"/>
+  <rect x="275" y="240" width="16" height="32" fill="#0f172a"/>
+  <rect x="240" y="270" width="30" height="24" fill="#0f172a"/>
+
+  <rect x="145" y="320" width="16" height="20" fill="#0f172a"/>
+  <rect x="175" y="320" width="36" height="16" fill="#0f172a"/>
+  <rect x="145" y="355" width="40" height="24" fill="#0f172a"/>
+  <rect x="200" y="350" width="20" height="24" fill="#0f172a"/>
+  <rect x="235" y="325" width="24" height="24" fill="#0f172a"/>
+  <rect x="270" y="325" width="20" height="16" fill="#0f172a"/>
+  <rect x="240" y="360" width="50" height="20" fill="#0f172a"/>
+
+  <!-- Footer Instructions -->
+  <text x="180" y="430" font-family="'Outfit', sans-serif" font-weight="600" font-size="12" fill="#334155" text-anchor="middle">SATU QR UNTUK SEMUA APLIKASI PEMBAYARAN</text>
+  <text x="180" y="448" font-family="'Outfit', sans-serif" font-weight="400" font-size="10" fill="#94a3b8" text-anchor="middle">BCA • Mandiri • BRI • BNI • GoPay • OVO • Dana • ShopeePay</text>
+  <text x="180" y="465" font-family="'Outfit', sans-serif" font-weight="400" font-size="9" fill="#cbd5e1" text-anchor="middle">Dicetak Resmi via Standar Bank Indonesia</text>
+</svg>
