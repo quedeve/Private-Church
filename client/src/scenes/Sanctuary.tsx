@@ -477,10 +477,11 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 6. HIGH CLEAR ARCHED WINDOWS & VOLUMETRIC SUNLIGHT SHAFTS */}
+      {/* 6. HIGH CLEAR ARCHED CLERESTORY WINDOWS */}
       {/* ========================================================================= */}
       {[-12, -6, 0, 6, 12].map((z, idx) => (
         <group key={`win-bay-${idx}`}>
+          {/* Left Arched Window */}
           <group position={[-12.4, 11, z]}>
             <mesh>
               <boxGeometry args={[0.3, 7.5, 3.2]} />
@@ -498,19 +499,9 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
               <boxGeometry args={[0.06, 0.08, 2.9]} />
               {gildedGoldMat}
             </mesh>
-            <mesh position={[4.5, -4.5, -1.5]} rotation={[0.4, 0.3, -0.65]}>
-              <cylinderGeometry args={[0.8, 4.2, 14, 16, 1, true]} />
-              <meshBasicMaterial
-                color="#fef08a"
-                transparent
-                opacity={0.075}
-                side={THREE.DoubleSide}
-                blending={THREE.AdditiveBlending}
-                depthWrite={false}
-              />
-            </mesh>
           </group>
 
+          {/* Right Arched Window */}
           <group position={[12.4, 11, z]}>
             <mesh>
               <boxGeometry args={[0.3, 7.5, 3.2]} />
@@ -528,17 +519,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
               <boxGeometry args={[0.06, 0.08, 2.9]} />
               {gildedGoldMat}
             </mesh>
-            <mesh position={[-4.5, -4.5, -1.5]} rotation={[-0.4, -0.3, 0.65]}>
-              <cylinderGeometry args={[0.8, 4.2, 14, 16, 1, true]} />
-              <meshBasicMaterial
-                color="#fef08a"
-                transparent
-                opacity={0.075}
-                side={THREE.DoubleSide}
-                blending={THREE.AdditiveBlending}
-                depthWrite={false}
-              />
-            </mesh>
           </group>
         </group>
       ))}
@@ -552,8 +532,18 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
         <boxGeometry args={[0.6, 19, 44]} />
         {plasterWallMat}
       </mesh>
+      {/* South Wall (Entrance) */}
       <mesh position={[0, 9.5, 22]} receiveShadow>
         <boxGeometry args={[25, 19, 0.8]} />
+        {plasterWallMat}
+      </mesh>
+      {/* North Corner Walls flanking the Central Apse */}
+      <mesh position={[-10.7, 9.5, -22]} receiveShadow>
+        <boxGeometry args={[3.8, 19, 0.6]} />
+        {plasterWallMat}
+      </mesh>
+      <mesh position={[10.7, 9.5, -22]} receiveShadow>
+        <boxGeometry args={[3.8, 19, 0.6]} />
         {plasterWallMat}
       </mesh>
 
@@ -636,18 +626,6 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
             <mesh rotation={[-Math.PI / 2, 0, 0]}>
               <circleGeometry args={[1.18, 24]} />
               <meshBasicMaterial color="#ffffff" />
-            </mesh>
-
-            <mesh position={[0, -5.5, 0]}>
-              <cylinderGeometry args={[1.2, 3.8, 12, 16, 1, true]} />
-              <meshBasicMaterial
-                color="#fffbeb"
-                transparent
-                opacity={0.06}
-                side={THREE.DoubleSide}
-                blending={THREE.AdditiveBlending}
-                depthWrite={false}
-              />
             </mesh>
           </group>
         </group>
