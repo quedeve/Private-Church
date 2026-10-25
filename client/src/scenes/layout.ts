@@ -62,13 +62,7 @@ export const LAYOUT = {
     rowsZ: [-12, -8, -4, 0, 4, 8, 12],
   },
 
-  // Colossal Columns (6 pairs)
-  columns: {
-    leftX: -7.5,
-    rightX: 7.5,
-    rowsZ: [-16, -10, -4, 2, 8, 14],
-    radius: 0.85,
-  },
+  // Open-Span Pillarless Basilica Layout
 
   // Sanctuary Movement Collision Bounds
   bounds: {

@@ -283,118 +283,36 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </group>
 
       {/* ========================================================================= */}
-      {/* 3. COLOSSAL MARBLE COLUMNS & ENTABLATURE (POSITIONED CLEAR OF PEWS) */}
+      {/* 3. WALL-MOUNTED CLASSICAL CORNICE & ENTABLATURE (PILLARLESS OPEN SPAN) */}
       {/* ========================================================================= */}
-      {LAYOUT.columns.rowsZ.map((zPos, idx) => (
-        <group key={`col-pair-${idx}`}>
-          {/* Left Colossal Column */}
-          <group position={[LAYOUT.columns.leftX, 0, zPos]}>
-            <mesh position={[0, 1.1, 0]} castShadow receiveShadow>
-              <boxGeometry args={[1.5, 2.2, 1.5]} />
-              {marbleSolidMat}
-            </mesh>
-            <mesh position={[0, 2.25, 0]}>
-              <boxGeometry args={[1.65, 0.15, 1.65]} />
-              {gildedGoldMat}
-            </mesh>
-            <mesh position={[0, 2.5, 0]}>
-              <cylinderGeometry args={[0.65, 0.75, 0.35, 24]} />
-              {marbleSolidMat}
-            </mesh>
-            <mesh position={[0, 8.5, 0]} castShadow receiveShadow>
-              <cylinderGeometry args={[0.55, 0.62, 11.5, 32]} />
-              {marbleSolidMat}
-            </mesh>
-            <group position={[0, 14.5, 0]}>
-              <mesh position={[0, 0.2, 0]}>
-                <cylinderGeometry args={[0.75, 0.58, 0.5, 20]} />
-                {gildedGoldMat}
-              </mesh>
-              <mesh position={[0, 0.65, 0]}>
-                <cylinderGeometry args={[0.9, 0.72, 0.5, 20]} />
-                {gildedGoldMat}
-              </mesh>
-              <mesh position={[0, 1.05, 0]}>
-                <boxGeometry args={[1.5, 0.3, 1.5]} />
-                {gildedGoldMat}
-              </mesh>
-            </group>
-          </group>
-
-          {/* Right Colossal Column */}
-          <group position={[LAYOUT.columns.rightX, 0, zPos]}>
-            <mesh position={[0, 1.1, 0]} castShadow receiveShadow>
-              <boxGeometry args={[1.5, 2.2, 1.5]} />
-              {marbleSolidMat}
-            </mesh>
-            <mesh position={[0, 2.25, 0]}>
-              <boxGeometry args={[1.65, 0.15, 1.65]} />
-              {gildedGoldMat}
-            </mesh>
-            <mesh position={[0, 2.5, 0]}>
-              <cylinderGeometry args={[0.65, 0.75, 0.35, 24]} />
-              {marbleSolidMat}
-            </mesh>
-            <mesh position={[0, 8.5, 0]} castShadow receiveShadow>
-              <cylinderGeometry args={[0.55, 0.62, 11.5, 32]} />
-              {marbleSolidMat}
-            </mesh>
-            <group position={[0, 14.5, 0]}>
-              <mesh position={[0, 0.2, 0]}>
-                <cylinderGeometry args={[0.75, 0.58, 0.5, 20]} />
-                {gildedGoldMat}
-              </mesh>
-              <mesh position={[0, 0.65, 0]}>
-                <cylinderGeometry args={[0.9, 0.72, 0.5, 20]} />
-                {gildedGoldMat}
-              </mesh>
-              <mesh position={[0, 1.05, 0]}>
-                <boxGeometry args={[1.5, 0.3, 1.5]} />
-                {gildedGoldMat}
-              </mesh>
-            </group>
-          </group>
-
-          {/* Transverse Cross Archway */}
-          <group position={[0, 16.5, zPos]}>
-            <mesh castShadow>
-              <boxGeometry args={[14.2, 0.6, 1.1]} />
-              {marbleSolidMat}
-            </mesh>
-            <mesh position={[0, -0.32, 0]}>
-              <boxGeometry args={[14.0, 0.1, 0.9]} />
-              {gildedGoldMat}
-            </mesh>
-          </group>
-        </group>
-      ))}
-
-      {/* Classical Entablature Beams */}
-      <group position={[-7.5, 15.8, 0]}>
+      {/* Left Wall Classical Cornice & Dentil Frieze */}
+      <group position={[-12.2, 17.5, 0]}>
         <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[1.4, 0.5, 38]} />
+          <boxGeometry args={[0.8, 0.6, 44]} />
           {marbleSolidMat}
         </mesh>
-        <mesh position={[0, 0.45, 0]}>
-          <boxGeometry args={[1.6, 0.4, 38]} />
+        <mesh position={[0.2, 0.35, 0]}>
+          <boxGeometry args={[0.5, 0.25, 44]} />
           {gildedGoldMat}
         </mesh>
-        <mesh position={[0, 0.85, 0]}>
-          <boxGeometry args={[1.8, 0.4, 38]} />
+        <mesh position={[0.35, 0.55, 0]}>
+          <boxGeometry args={[0.3, 0.15, 44]} />
           {marbleSolidMat}
         </mesh>
       </group>
-      <group position={[7.5, 15.8, 0]}>
+
+      {/* Right Wall Classical Cornice & Dentil Frieze */}
+      <group position={[12.2, 17.5, 0]}>
         <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[1.4, 0.5, 38]} />
+          <boxGeometry args={[0.8, 0.6, 44]} />
           {marbleSolidMat}
         </mesh>
-        <mesh position={[0, 0.45, 0]}>
-          <boxGeometry args={[1.6, 0.4, 38]} />
+        <mesh position={[-0.2, 0.35, 0]}>
+          <boxGeometry args={[0.5, 0.25, 44]} />
           {gildedGoldMat}
         </mesh>
-        <mesh position={[0, 0.85, 0]}>
-          <boxGeometry args={[1.8, 0.4, 38]} />
+        <mesh position={[-0.35, 0.55, 0]}>
+          <boxGeometry args={[0.3, 0.15, 44]} />
           {marbleSolidMat}
         </mesh>
       </group>
@@ -647,26 +565,28 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
       </mesh>
 
       {/* ========================================================================= */}
-      {/* 7. TOWERING COFFERED BARREL VAULT & COFFERED CEILING */}
+      {/* 7. TOWERING COFFERED BARREL VAULT & COFFERED CEILING (WALL-TO-WALL SPAN) */}
       {/* ========================================================================= */}
       {[-15, -9, -3, 3, 9, 15].map((z, row) => (
         <group key={`vault-row-${row}`} position={[0, 18.2, z]}>
+          {/* Main Ceiling Deck Spanning Full 24.8m Hall Width */}
           <mesh castShadow>
-            <boxGeometry args={[14.8, 0.8, 5.2]} />
+            <boxGeometry args={[24.8, 0.8, 5.2]} />
             <meshStandardMaterial color="#fffbeb" roughness={0.2} />
           </mesh>
-          {[-4.8, -1.6, 1.6, 4.8].map((x, col) => (
+          {/* 8 Coffered Panels Spanning Across the Nave & Wings */}
+          {[-9.6, -6.8, -4.0, -1.4, 1.4, 4.0, 6.8, 9.6].map((x, col) => (
             <group key={`coffer-${col}`} position={[x, -0.15, 0]}>
               <mesh>
-                <boxGeometry args={[2.5, 0.45, 3.8]} />
+                <boxGeometry args={[2.3, 0.45, 3.8]} />
                 {gildedGoldMat}
               </mesh>
               <mesh position={[0, 0.15, 0]}>
-                <boxGeometry args={[2.0, 0.4, 3.2]} />
+                <boxGeometry args={[1.9, 0.4, 3.2]} />
                 <meshStandardMaterial color="#451a03" roughness={0.4} />
               </mesh>
               <mesh position={[0, -0.05, 0]}>
-                <cylinderGeometry args={[0.3, 0.4, 0.15, 8]} />
+                <cylinderGeometry args={[0.25, 0.35, 0.15, 8]} />
                 {gildedGoldMat}
               </mesh>
             </group>
@@ -758,18 +678,11 @@ export const Sanctuary: React.FC<SanctuaryProps> = ({
             {gildedGoldMat}
           </mesh>
         </group>
-        {[-7, -3.5, 0, 3.5, 7].map((x, idx) => (
-          <group key={`apse-pilaster-${idx}`} position={[x, 7.5, Math.cos((x / 8.8) * (Math.PI / 2)) * -6]}>
-            <mesh>
-              <boxGeometry args={[0.7, 15, 0.25]} />
-              {marbleSolidMat}
-            </mesh>
-            <mesh position={[0, 7.6, 0]}>
-              <boxGeometry args={[0.9, 0.45, 0.35]} />
-              {gildedGoldMat}
-            </mesh>
-          </group>
-        ))}
+        {/* Curved Gilded Frieze Molding Bands */}
+        <mesh position={[0, 8.0, -4.5]} rotation={[0, Math.PI, 0]}>
+          <cylinderGeometry args={[8.7, 8.7, 0.25, 32, 1, true, 0, Math.PI]} />
+          {gildedGoldMat}
+        </mesh>
         <mesh position={[0, 15.0, -4.5]} rotation={[0, Math.PI, 0]}>
           <cylinderGeometry args={[8.7, 8.7, 0.5, 32, 1, true, 0, Math.PI]} />
           {gildedGoldMat}
